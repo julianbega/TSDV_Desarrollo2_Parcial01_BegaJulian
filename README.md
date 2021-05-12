@@ -1,0 +1,2 @@
+# TSDV_Desarrollo2_Parcial01_BegaJulian
+Parcial 1
