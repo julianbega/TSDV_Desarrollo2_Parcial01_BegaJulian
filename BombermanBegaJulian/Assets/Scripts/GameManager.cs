@@ -8,16 +8,20 @@ public class GameManager : MonoBehaviour
     public int mapColumn = 31;
     [Range(1, 246)]
     public int destructableColumns = 10;
+    public int points = 0;
+    public float timer = 0;
+    public GameObject player;
     // Start is called before the first frame update
     void Start()
     {
         CreateMap();
+        Instantiate(player, new Vector3(1, player.transform.localScale.y/2, 1), Quaternion.identity);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        timer += Time.deltaTime;
     }
 
     void CreateMap()
@@ -28,6 +32,7 @@ public class GameManager : MonoBehaviour
         mapBase.GetComponent<Renderer>().material.color = new Color32(180, 254, 180, 1);
         mapBase.transform.gameObject.tag = "Map";
         mapBase.name = "mapBase";
+        mapBase.isStatic = true;
         for (int i = 0; i < mapRows; i++)
         {
             for (int j = 0; j < mapColumn; j++)
@@ -40,6 +45,7 @@ public class GameManager : MonoBehaviour
                     pillar.GetComponent<Renderer>().material.color = Color.gray;
                     pillar.transform.gameObject.tag = "Map";
                     pillar.name = "pillar";
+                    pillar.isStatic = true;
                 }
                 
             }
@@ -81,6 +87,7 @@ public class GameManager : MonoBehaviour
                 door.transform.localScale = new Vector3(door.transform.localScale.x- door.transform.localScale.x/3, door.transform.localScale.y - door.transform.localScale.y / 3, door.transform.localScale.z - door.transform.localScale.z / 3);
                 door.transform.gameObject.tag = "Door";
                 door.name = "Door";
+                door.isStatic = true;
             }
             dPillar.transform.position = PosibleDestroyablePillarsPositions[actualDPillar];
             PosibleDestroyablePillarsPositions.Remove(PosibleDestroyablePillarsPositions[actualDPillar]);
@@ -88,8 +95,9 @@ public class GameManager : MonoBehaviour
             dPillar.GetComponent<Renderer>().material.color = Color.black;
             dPillar.transform.gameObject.tag = "DestroyablePillar";
             dPillar.name = "DestroyablePillar";
+            dPillar.isStatic = true;
 
-           
+
         }
 
     }
