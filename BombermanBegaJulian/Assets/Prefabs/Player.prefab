@@ -110,6 +110,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerLives: 3
   speed: 3
+  bombPrefab: {fileID: 4156313389858560205, guid: 0fabb46673101ab4e80f34b1010be4aa,
+    type: 3}
+  maxBombs: 1
 --- !u!54 &7705812772871835941
 Rigidbody:
   m_ObjectHideFlags: 0

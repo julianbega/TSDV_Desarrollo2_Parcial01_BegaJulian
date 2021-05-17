@@ -244,7 +244,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapRows: 13
   mapColumn: 31
-  destructableColumns: 174
+  destructableColumns: 8
+  points: 0
+  timer: 0
+  player: {fileID: 2549688863070177479, guid: 8cdce5a7478c302459218ef50e7c5c96, type: 3}
 --- !u!4 &878413807
 Transform:
   m_ObjectHideFlags: 0
@@ -270,6 +273,7 @@ GameObject:
   - component: {fileID: 1971018584}
   - component: {fileID: 1971018583}
   - component: {fileID: 1971018582}
+  - component: {fileID: 1971018585}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -294,8 +298,8 @@ Camera:
   m_GameObject: {fileID: 1971018581}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0, g: 0.5566038, b: 0.05281368, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -335,10 +339,27 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1971018581}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalRotation: {x: 0.5, y: 0.5, z: -0.5, w: 0.5}
+  m_LocalPosition: {x: 5.85, y: 18.7, z: 16.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 90, z: 0}
+--- !u!114 &1971018585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1971018581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1b57a7abd959ee45b6aa6d627f9a773, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lookAtThat: {fileID: 0}
+  verticalDistance: 6.77
+  horizontalDistanceX: 4.62
+  horizontalDistanceZ: 0
+  smothSpeed: 1.79
