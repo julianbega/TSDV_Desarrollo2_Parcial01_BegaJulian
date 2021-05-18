@@ -12,11 +12,13 @@ public class CameraController : MonoBehaviour
     public float smothSpeed;
     private Vector3 zoom;
     bool start = false;
+    bool allreadyFocusCamera;
 
     private Vector3 posToMoveTowards;
 
     private void Start()
     {
+        allreadyFocusCamera = false;
         smothSpeed = 5;
     }
     void LateUpdate()
@@ -26,17 +28,22 @@ public class CameraController : MonoBehaviour
             start = true;
             lookAtThat = FindObjectOfType<PlayerManager>();
         }
-        FocusToTargetAndMove();
+        MoveCameraToFolowTarget();
+        
+        if (!allreadyFocusCamera)
+        {
+            allreadyFocusCamera = true;
+            transform.LookAt(lookAtThat.transform);
+        }
     }
-    public void FocusToTargetAndMove()
+    public void MoveCameraToFolowTarget()
     {
         Vector3 myPos = transform.position;
 
         zoom = new Vector3(-horizontalDistanceX, verticalDistance, horizontalDistanceZ);
 
         posToMoveTowards = lookAtThat.transform.position + zoom;
-
-       transform.LookAt(lookAtThat.transform);
+      
 
         transform.position = Vector3.Lerp(myPos, posToMoveTowards, Vector3.Distance(myPos, posToMoveTowards) * Time.deltaTime * smothSpeed);
     }
