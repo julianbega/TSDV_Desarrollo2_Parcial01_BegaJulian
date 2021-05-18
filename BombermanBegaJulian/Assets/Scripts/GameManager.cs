@@ -8,9 +8,10 @@ public class GameManager : MonoBehaviour
     public int mapColumn = 31;
     [Range(1, 246)]
     public int destructableColumns = 10;
-    public int points = 0;
+    public int score = 0;
     public float timer = 0;
     public GameObject player;
+    public int totalEnemies = 0;
     // Start is called before the first frame update
     void Start()
     {

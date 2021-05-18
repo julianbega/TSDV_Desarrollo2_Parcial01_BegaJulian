@@ -12,6 +12,8 @@ public class PlayerManager : MonoBehaviour
     private bool allreadyMovingUpOrDown = false;
     private bool allreadyMovingLeftOrRight = false;
     public int maxBombs = 1;
+    public int actualBombs = 0;
+    public int bombsRange = 1;
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
@@ -104,8 +106,9 @@ public class PlayerManager : MonoBehaviour
             allreadyMovingUpOrDown = false;
             allreadyMovingLeftOrRight = false;
         }
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space) && actualBombs < maxBombs)
         {
+            actualBombs++;
             Instantiate(bombPrefab, new Vector3((float)Math.Round(transform.position.x, 0), transform.position.y, (float)Math.Round(transform.position.z, 0)), Quaternion.identity);
         }
     }

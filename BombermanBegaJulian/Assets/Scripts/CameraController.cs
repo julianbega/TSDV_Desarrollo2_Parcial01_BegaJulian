@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    [SerializeField] public PlayerManager lookAtThat;
+    private PlayerManager lookAtThat;
 
     [SerializeField] [Range(5, 15)] public float verticalDistance;
-    [SerializeField] [Range(3, 10)] public float horizontalDistanceX;
+    [SerializeField] [Range(4, 10)] public float horizontalDistanceX;
     [SerializeField] [Range(-3, 3)] public float horizontalDistanceZ;
     public float smothSpeed;
     private Vector3 zoom;
