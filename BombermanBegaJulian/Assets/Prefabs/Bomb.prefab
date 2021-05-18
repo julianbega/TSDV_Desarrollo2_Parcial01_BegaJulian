@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 793423925545215974}
   - component: {fileID: 378839127172161666}
   - component: {fileID: 5761467370719646211}
-  - component: {fileID: 6536157618750339805}
   m_Layer: 0
   m_Name: wick
   m_TagString: Untagged
@@ -80,20 +79,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!136 &6536157618750339805
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2602217092058309572}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2707932245778299348
 GameObject:
   m_ObjectHideFlags: 0
@@ -105,7 +90,6 @@ GameObject:
   - component: {fileID: 7531709699843104514}
   - component: {fileID: 4289158507308963346}
   - component: {fileID: 2679876137595282829}
-  - component: {fileID: 959911934350054191}
   m_Layer: 0
   m_Name: Fire
   m_TagString: Untagged
@@ -174,19 +158,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!135 &959911934350054191
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2707932245778299348}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4156313389858560205
 GameObject:
   m_ObjectHideFlags: 0
@@ -199,9 +170,10 @@ GameObject:
   - component: {fileID: 5164320406619577412}
   - component: {fileID: 8914344112093680803}
   - component: {fileID: 4870113358529188865}
+  - component: {fileID: 5192247688375635762}
   m_Layer: 0
   m_Name: Bomb
-  m_TagString: Untagged
+  m_TagString: Bomb
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -215,7 +187,7 @@ Transform:
   m_GameObject: {fileID: 4156313389858560205}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.7027799, y: -49.16132, z: 8.972922}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.65, y: 0.65, z: 0.65}
   m_Children:
   - {fileID: 793423925545215974}
   - {fileID: 7531709699843104514}
@@ -277,8 +249,21 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4156313389858560205}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5192247688375635762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4156313389858560205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ba0d32837e7dac4eabde3b4b745d432, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeToExplode: 5

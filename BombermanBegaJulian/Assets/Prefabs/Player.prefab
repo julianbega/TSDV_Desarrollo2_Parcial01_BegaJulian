@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 7705812772871835941}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -113,6 +113,8 @@ MonoBehaviour:
   bombPrefab: {fileID: 4156313389858560205, guid: 0fabb46673101ab4e80f34b1010be4aa,
     type: 3}
   maxBombs: 1
+  actualBombs: 0
+  bombsRange: 1
 --- !u!54 &7705812772871835941
 Rigidbody:
   m_ObjectHideFlags: 0

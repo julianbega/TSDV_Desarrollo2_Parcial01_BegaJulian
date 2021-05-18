@@ -35,9 +35,15 @@ public class PlayerManager : MonoBehaviour
             myRay = new Ray(this.transform.position, Vector3.forward);
             if (Physics.Raycast(myRay, out myHit, 0.5f))
             {
-                if (myHit.transform.gameObject.tag == "Bomb" || myHit.transform.gameObject.tag == "DestroyablePillar")
+                if (/*myHit.transform.gameObject.tag == "Bomb" || */myHit.transform.gameObject.tag == "DestroyablePillar")
                 {
-                }              
+                }
+                else
+                {
+                    allreadyMovingLeftOrRight = true;
+                    transform.position += Vector3.forward * speed * Time.deltaTime;
+                    transform.position = new Vector3((float)Math.Round(transform.position.x, 0), transform.position.y, transform.position.z);
+                }
             }
             else 
             {
@@ -53,9 +59,15 @@ public class PlayerManager : MonoBehaviour
             myRay = new Ray(this.transform.position,Vector3.back);
             if (Physics.Raycast(myRay, out myHit, 0.5f))
             {
-                if (myHit.transform.gameObject.tag == "Bomb" || myHit.transform.gameObject.tag == "DestroyablePillar")
+                if (/*myHit.transform.gameObject.tag == "Bomb" || */myHit.transform.gameObject.tag == "DestroyablePillar")
                 {
-                }                
+                }
+                else
+                {
+                    allreadyMovingLeftOrRight = true;
+                    transform.position += Vector3.back * speed * Time.deltaTime;
+                    transform.position = new Vector3((float)Math.Round(transform.position.x, 0), transform.position.y, transform.position.z);
+                }
             }
             else
             {
@@ -71,9 +83,15 @@ public class PlayerManager : MonoBehaviour
             myRay = new Ray(this.transform.position, Vector3.right);
             if (Physics.Raycast(myRay, out myHit, 0.5f))
             {
-                if (myHit.transform.gameObject.tag == "Bomb" || myHit.transform.gameObject.tag == "DestroyablePillar")
+                if (/*myHit.transform.gameObject.tag == "Bomb" || */myHit.transform.gameObject.tag == "DestroyablePillar")
                 {              
-                }                
+                }
+                else
+                {
+                    allreadyMovingUpOrDown = true;
+                    transform.position += Vector3.right * speed * Time.deltaTime;
+                    transform.position = new Vector3(transform.position.x, transform.position.y, (float)Math.Round(transform.position.z, 0));
+                }
             }
             else
             {
@@ -90,8 +108,14 @@ public class PlayerManager : MonoBehaviour
             myRay = new Ray(this.transform.position, Vector3.left);
             if (Physics.Raycast(myRay, out myHit, 0.5f))
             {
-                if (myHit.transform.gameObject.tag == "Bomb" || myHit.transform.gameObject.tag == "DestroyablePillar")
+                if (/*myHit.transform.gameObject.tag == "Bomb" ||*/ myHit.transform.gameObject.tag == "DestroyablePillar")
                 {
+                }
+                else
+                {
+                    allreadyMovingUpOrDown = true;
+                    transform.position += Vector3.left * speed * Time.deltaTime;
+                    transform.position = new Vector3(transform.position.x, transform.position.y, (float)Math.Round(transform.position.z, 0));
                 }
             }
             else

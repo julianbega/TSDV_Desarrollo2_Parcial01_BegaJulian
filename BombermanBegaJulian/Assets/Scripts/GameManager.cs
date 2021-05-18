@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        DontDestroyOnLoad(this.gameObject);
         CreateMap();
         Instantiate(player, new Vector3(1, player.transform.localScale.y/2, 1), Quaternion.identity);
     }
