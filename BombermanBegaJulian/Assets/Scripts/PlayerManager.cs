@@ -17,15 +17,28 @@ public class PlayerManager : MonoBehaviour
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
+        Bomb.hasExploted += ReduceActualBombs;
     }
 
+    private void OnDisable()
+    {
+        Bomb.hasExploted -= ReduceActualBombs;
+    }
     // Update is called once per frame
     void Update()
     {
         PlayerMovment();
+        if (Input.GetKey(KeyCode.Space) && actualBombs < maxBombs)
+        {
+            actualBombs++;
+            Instantiate(bombPrefab, new Vector3((float)Math.Round(transform.position.x, 0), transform.position.y, (float)Math.Round(transform.position.z, 0)), Quaternion.identity);
+        }
     }
 
-
+    void ReduceActualBombs()
+    {
+        actualBombs--;
+    }
     void PlayerMovment()
     {               
         if (Input.GetKey(KeyCode.LeftArrow) && ((float)Math.Round(transform.position.x, 0) % 2 != 0) && transform.position.z <= gameManager.mapColumn-2 && allreadyMovingUpOrDown==false)
@@ -41,15 +54,17 @@ public class PlayerManager : MonoBehaviour
                 else
                 {
                     allreadyMovingLeftOrRight = true;
-                    transform.position += Vector3.forward * speed * Time.deltaTime;
-                    transform.position = new Vector3((float)Math.Round(transform.position.x, 0), transform.position.y, transform.position.z);
+                    transform.position += Vector3.forward * speed * Time.deltaTime;                    
+                    Vector3 newPos = new Vector3((float)Math.Round(transform.position.x, 0), transform.position.y, transform.position.z);
+                    transform.position = Vector3.Lerp(transform.position, newPos, 1);
                 }
             }
             else 
             {
                 allreadyMovingLeftOrRight = true;
                 transform.position += Vector3.forward * speed * Time.deltaTime;
-                transform.position = new Vector3((float)Math.Round(transform.position.x, 0), transform.position.y, transform.position.z);
+                Vector3 newPos = new Vector3((float)Math.Round(transform.position.x, 0), transform.position.y, transform.position.z);
+                transform.position = Vector3.Lerp(transform.position, newPos, 1);
             }            
         }        
         if (Input.GetKey(KeyCode.RightArrow) && ((float)Math.Round(transform.position.x, 0) % 2 != 0) && transform.position.z >=1 && allreadyMovingUpOrDown == false)
@@ -66,14 +81,16 @@ public class PlayerManager : MonoBehaviour
                 {
                     allreadyMovingLeftOrRight = true;
                     transform.position += Vector3.back * speed * Time.deltaTime;
-                    transform.position = new Vector3((float)Math.Round(transform.position.x, 0), transform.position.y, transform.position.z);
+                    Vector3 newPos = new Vector3((float)Math.Round(transform.position.x, 0), transform.position.y, transform.position.z);
+                    transform.position = Vector3.Lerp(transform.position, newPos, 1);
                 }
             }
             else
             {
                 allreadyMovingLeftOrRight = true;
                 transform.position += Vector3.back * speed * Time.deltaTime;
-                transform.position = new Vector3((float)Math.Round(transform.position.x, 0), transform.position.y, transform.position.z);
+                Vector3 newPos = new Vector3((float)Math.Round(transform.position.x, 0), transform.position.y, transform.position.z);
+                transform.position = Vector3.Lerp(transform.position, newPos, 1);
             }
         }
         if (Input.GetKey(KeyCode.UpArrow) && ((float)Math.Round(transform.position.z, 0) % 2 != 0) && transform.position.x <= gameManager.mapRows-2 && allreadyMovingLeftOrRight == false)
@@ -130,11 +147,7 @@ public class PlayerManager : MonoBehaviour
             allreadyMovingUpOrDown = false;
             allreadyMovingLeftOrRight = false;
         }
-        if (Input.GetKey(KeyCode.Space) && actualBombs < maxBombs)
-        {
-            actualBombs++;
-            Instantiate(bombPrefab, new Vector3((float)Math.Round(transform.position.x, 0), transform.position.y, (float)Math.Round(transform.position.z, 0)), Quaternion.identity);
-        }
+       
     }
 }
 

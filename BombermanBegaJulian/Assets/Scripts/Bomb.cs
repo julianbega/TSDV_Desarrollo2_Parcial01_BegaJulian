@@ -4,20 +4,29 @@ using UnityEngine;
 
 public class Bomb : MonoBehaviour
 {
+    public delegate void Explode();
+    public static Explode hasExploted;
     public float timeToExplode;
     private float actualTimer;
+    private bool allreadyExplode;
     void Start()
     {
         actualTimer = 0;
+        allreadyExplode = false;
     }
 
     // Update is called once per frame
     void Update()
     {
         actualTimer += Time.deltaTime;
-        if (actualTimer >= timeToExplode)
+        if (actualTimer >= timeToExplode && allreadyExplode == false)
         {
+            allreadyExplode = true;
             Explosion();
+        }
+        if (actualTimer >= timeToExplode+1)
+        {
+            Destroy(this.gameObject);
         }
     }
 
@@ -31,6 +40,10 @@ public class Bomb : MonoBehaviour
 
     void Explosion()
     {
-        Destroy(this.gameObject);
+        hasExploted?.Invoke();
+        this.GetComponent<Renderer>().enabled = false;
+       // this.GetComponentInChildren<Renderer>().enabled = false;
+        this.GetComponent<Renderer>().enabled = false;
+        this.GetComponent<Collider>().enabled = false;
     }
 }
