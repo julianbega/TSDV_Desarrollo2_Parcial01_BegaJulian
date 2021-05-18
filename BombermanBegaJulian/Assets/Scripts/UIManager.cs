@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class UIManager : MonoBehaviour
 {
@@ -16,6 +17,14 @@ public class UIManager : MonoBehaviour
     private GameManager gameInfo;
     bool start = false;
 
+    int timerMin;
+    float timerSec;
+
+    private void Start()
+    {
+        timerSec = 0;
+        timerMin = 0;
+    }
     // Update is called once per frame
     void Update()
     {
@@ -26,11 +35,20 @@ public class UIManager : MonoBehaviour
             gameInfo = FindObjectOfType<GameManager>();
         }
 
-        Timer.text = "Timer: " + gameInfo.timer;
+        
         Score.text = "Score: " + gameInfo.score;
         MaxBombs.text = "MaxBombs: " + playerInfo.maxBombs;
         BombRange.text= "BombRange: " + playerInfo.bombsRange;
         EnemiesLeft.text= "EnemiesLeft: " + gameInfo.totalEnemies;
         Lives.text= "PlayerLives: " + playerInfo.playerLives;
+
+
+        timerSec += Time.deltaTime;
+        if (timerSec >= 59)
+        {
+            timerSec = 0;
+            timerMin++;
+        }
+        Timer.text = "Timer: " + timerMin + " : " + (float)Math.Round(timerSec);
     }
 }
