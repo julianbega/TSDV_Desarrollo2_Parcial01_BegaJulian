@@ -13,7 +13,7 @@ public class PlayerManager : MonoBehaviour
     private bool allreadyMovingLeftOrRight = false;
     public int maxBombs = 1;
     public int actualBombs = 0;
-    public int bombsRange = 1;
+    public static int bombsRange = 1;
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();

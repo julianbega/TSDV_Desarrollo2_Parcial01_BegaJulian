@@ -953,8 +953,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1b57a7abd959ee45b6aa6d627f9a773, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  verticalDistance: 6.77
-  horizontalDistanceX: 4.62
+  verticalDistance: 8.05
+  horizontalDistanceX: 6.6
   horizontalDistanceZ: 0
   smothSpeed: 1.79
 --- !u!1 &1982206427

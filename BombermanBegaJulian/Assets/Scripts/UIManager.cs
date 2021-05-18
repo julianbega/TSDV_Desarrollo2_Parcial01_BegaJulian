@@ -38,7 +38,7 @@ public class UIManager : MonoBehaviour
         
         Score.text = "Score: " + gameInfo.score;
         MaxBombs.text = "MaxBombs: " + playerInfo.maxBombs;
-        BombRange.text= "BombRange: " + playerInfo.bombsRange;
+        BombRange.text= "BombRange: " + PlayerManager.bombsRange;
         EnemiesLeft.text= "EnemiesLeft: " + gameInfo.totalEnemies;
         Lives.text= "PlayerLives: " + playerInfo.playerLives;
 
