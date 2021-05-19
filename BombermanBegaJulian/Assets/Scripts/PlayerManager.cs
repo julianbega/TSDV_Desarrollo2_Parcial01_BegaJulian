@@ -42,6 +42,7 @@ public class PlayerManager : MonoBehaviour
     }
     void GetDamage()
     {
+        this.transform.position = new Vector3(1, this.transform.localScale.y / 2, 1);
         playerLives--;
     }
     void ReduceActualBombs()
