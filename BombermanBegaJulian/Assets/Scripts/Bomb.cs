@@ -69,8 +69,9 @@ public class Bomb : MonoBehaviour
         hasExploted?.Invoke();
         
         this.GetComponent<Renderer>().enabled = false;
-        // this.GetComponentInChildren<Renderer>().enabled = false;
-        this.GetComponent<Renderer>().enabled = false;
+        this.GetComponentsInChildren<Renderer>()[1].enabled = false;
+        this.GetComponentsInChildren<Renderer>()[2].enabled = false;
+
         this.GetComponent<Collider>().enabled = false;
 
         Quaternion leftSide = new Quaternion(-1, 0, 0, 1);
