@@ -9,33 +9,34 @@ public class CameraController : MonoBehaviour
     [SerializeField] [Range(5, 15)] public float verticalDistance;
     [SerializeField] [Range(4, 10)] public float horizontalDistanceX;
     [SerializeField] [Range(-3, 3)] public float horizontalDistanceZ;
-    public float smothSpeed;
     private Vector3 zoom;
-    bool start = false;
-    bool allreadyFocusCamera;
 
     private Vector3 posToMoveTowards;
 
+    float timer;
     private void Start()
     {
-        start = false;
-        allreadyFocusCamera = false;
-        smothSpeed = 5;
+        timer = 0;
+        lookAtThat = FindObjectOfType<PlayerManager>();
     }
     void LateUpdate()
     {
-        if (start == false)
+        if (lookAtThat == null)
         {
-            start = true;
             lookAtThat = FindObjectOfType<PlayerManager>();
+
         }
         MoveCameraToFolowTarget();
-        
-        if (!allreadyFocusCamera)
+
+        if (timer <= 0.1)
         {
-            allreadyFocusCamera = true;
-            transform.LookAt(lookAtThat.transform);
+            timer += Time.deltaTime;
+            LookAtPlayer();
         }
+    }
+    public void LookAtPlayer()
+    {
+        transform.LookAt(lookAtThat.transform);
     }
     public void MoveCameraToFolowTarget()
     {
@@ -43,9 +44,8 @@ public class CameraController : MonoBehaviour
 
         zoom = new Vector3(-horizontalDistanceX, verticalDistance, horizontalDistanceZ);
 
-        posToMoveTowards = lookAtThat.transform.position + zoom;
-      
+        posToMoveTowards = lookAtThat.transform.position + zoom;      
 
-        transform.position = Vector3.Lerp(myPos, posToMoveTowards, Vector3.Distance(myPos, posToMoveTowards) * Time.deltaTime * smothSpeed);
+        transform.position = Vector3.Lerp(myPos, posToMoveTowards, Vector3.Distance(myPos, posToMoveTowards) * Time.deltaTime);
     }
 }

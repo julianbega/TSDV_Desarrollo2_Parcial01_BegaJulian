@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [Range(3, 99)]
+    [Range(11, 99)]
     public int mapRows = 13;
-    [Range(3, 99)]
+    [Range(11, 99)]
     public int mapColumn = 31;
     [Range(1, 246)]
     public int destructableColumns = 10;
@@ -16,6 +16,21 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if(mapRows % 2 == 0)
+        {
+            Debug.LogWarning("Las filas deben ser impares para la correcta creacion de mapa");
+        }
+        if (mapColumn % 2 == 0)
+        {
+            Debug.LogWarning("Las columnas deben ser impares para la correcta creacion de mapa");
+        }
+        int maxPosibleDColumns = ((mapRows - 2) * (mapColumn - 2)) - (((mapRows - 2) * (mapColumn - 2)) / 4) - 3;
+        if (destructableColumns > maxPosibleDColumns)
+        {
+            destructableColumns = maxPosibleDColumns;
+            Debug.LogWarning("Hay demasiadas columnas destruibles");
+        }
+        // tirar logwarning si setea algo mal del mapa
         DontDestroyOnLoad(this.gameObject);
         CreateMap();
         Instantiate(player, new Vector3(1, player.transform.localScale.y/2, 1), Quaternion.identity);
