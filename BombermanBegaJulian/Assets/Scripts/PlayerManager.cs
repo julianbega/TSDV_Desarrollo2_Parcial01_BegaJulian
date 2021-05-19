@@ -13,7 +13,7 @@ public class PlayerManager : MonoBehaviour
     private bool allreadyMovingLeftOrRight = false;
     public int maxBombs = 1;
     public int actualBombs = 0;
-    [SerializeField]public static int bombsRange =1;
+    [SerializeField]public static int bombsRange =2;
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
@@ -53,7 +53,7 @@ public class PlayerManager : MonoBehaviour
             myRay = new Ray(this.transform.position, Vector3.forward);
             if (Physics.Raycast(myRay, out myHit, 0.5f))
             {
-                if (/*myHit.transform.gameObject.tag == "Bomb" || */myHit.transform.gameObject.tag == "DestroyablePillar")
+                if (myHit.transform.gameObject.tag == "DestroyablePillar")
                 {
                 }
                 else

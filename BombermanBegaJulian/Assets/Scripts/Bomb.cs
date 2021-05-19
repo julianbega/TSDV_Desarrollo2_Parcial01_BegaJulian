@@ -10,7 +10,13 @@ public class Bomb : MonoBehaviour
     public static Explode DamagePlayer;
     public float timeToExplode;
     private float actualTimer;
-    private bool allreadyExplode;
+    private bool allreadyHitLeftPillar;
+    private bool allreadyHitRightPillar;
+    private bool allreadyHitFrontPillar;
+    private bool allreadyHitBackPillar;
+    private bool allreadyHitPlayer;
+    private int actualParticlesInstanciated;
+    private int particlesToInstanciate;
 
     [SerializeField]public GameObject flames;
 
@@ -26,17 +32,23 @@ public class Bomb : MonoBehaviour
     
     void Start()
     {
+        allreadyHitLeftPillar = false;
+        allreadyHitRightPillar = false;
+        allreadyHitFrontPillar = false;
+        allreadyHitBackPillar = false;
+        allreadyHitPlayer = false;
+        actualParticlesInstanciated = 0;
+        particlesToInstanciate = PlayerManager.bombsRange *4 + 1;
         actualTimer = 0;
-        allreadyExplode = false;
     }
 
     // Update is called once per frame
     void Update()
     {
         actualTimer += Time.deltaTime;
-        if (actualTimer >= timeToExplode && allreadyExplode == false)
+        if (actualTimer >= timeToExplode && allreadyHitLeftPillar == false)
         {
-            allreadyExplode = true;
+            allreadyHitLeftPillar = true;
             Explosion();
         }
         if (actualTimer >= timeToExplode + 1)
@@ -68,51 +80,78 @@ public class Bomb : MonoBehaviour
         Quaternion rightSide = new Quaternion(1, 0, 0, 1);
         Quaternion frontSide = new Quaternion(0, 0, 1, 1);
         Quaternion backSide = new Quaternion(0, 0, -1, 1);
-        ExplosionRaycast(myRayForward, myHitForward, Vector3.forward, frontSide);
-        ExplosionRaycast(myRayLeft, myHitLeft, Vector3.left, leftSide);
-        ExplosionRaycast(myRayRight, myHitRight, Vector3.right, rightSide);
-        ExplosionRaycast(myRayBack, myHitBack, Vector3.back, backSide);
 
-        Instantiate(flames, this.transform.position, Quaternion.identity);  
+
+        ExplosionRaycast(myRayForward, myHitForward, Vector3.forward, frontSide, allreadyHitFrontPillar);
+        ExplosionRaycast(myRayLeft, myHitLeft, Vector3.left, leftSide, allreadyHitLeftPillar);
+        ExplosionRaycast(myRayRight, myHitRight, Vector3.right, rightSide, allreadyHitRightPillar);
+        ExplosionRaycast(myRayBack, myHitBack, Vector3.back, backSide, allreadyHitBackPillar);
+        if (actualParticlesInstanciated < particlesToInstanciate)
+        {
+            Instantiate(flames, this.transform.position, Quaternion.identity);
+            actualParticlesInstanciated++;
+        }
     }
 
-    void ExplosionRaycast(Ray myRay, RaycastHit myRHit, Vector3 direction, Quaternion fireDir)
+    void ExplosionRaycast(Ray myRay, RaycastHit myRHit, Vector3 direction, Quaternion fireDir, bool PillarHitted)
     {
         myRay = new Ray(this.transform.position, direction);
         if (Physics.Raycast(myRay, out myRHit, PlayerManager.bombsRange + 0.4f))
         {
-            if (myRHit.transform.gameObject.tag == "DestroyablePillar" || myRHit.transform.gameObject.tag == "Enemy")
+            if (myRHit.transform.gameObject.tag == "DestroyablePillar" && PillarHitted == false)
             {
+                PillarHitted = true;
                 Destroy(myRHit.transform.gameObject);
 
-                GameObject fire1;
-                for (int i = 0; i < PlayerManager.bombsRange; i++)
+                if (myRHit.distance < PlayerManager.bombsRange)
                 {
+                    GameObject fire1;
+                    actualParticlesInstanciated++;
                     fire1 = Instantiate(flames, this.transform.position, fireDir);
-                    fire1.transform.position += (direction * (i + 1));
+                    fire1.transform.position += (direction);
+                }
+                else if (actualParticlesInstanciated < particlesToInstanciate)
+                {
+                    GameObject fire1;
+                    for (int i = 0; i < PlayerManager.bombsRange; i++)
+                    {
+                        actualParticlesInstanciated++;
+                        fire1 = Instantiate(flames, this.transform.position, fireDir);
+                        fire1.transform.position += (direction * (i + 1));
+                    }
                 }
             }
-            if (myRHit.transform.gameObject.tag == "Player")
+            if (myRHit.transform.gameObject.tag == "Player" && allreadyHitPlayer == false)
             {
+                allreadyHitPlayer = true;
                 DamagePlayer?.Invoke();
+                if (actualParticlesInstanciated < particlesToInstanciate)
+                {
+                    GameObject fire1;
+                    for (int i = 0; i < PlayerManager.bombsRange; i++)
+                    {
+                        actualParticlesInstanciated++;
+                        fire1 = Instantiate(flames, this.transform.position, fireDir);
+                        fire1.transform.position += (direction * (i + 1));
+                    }
+                }
+            }
+        }
+
+        else
+        {
+            if (actualParticlesInstanciated < particlesToInstanciate)
+            {
                 GameObject fire1;
                 for (int i = 0; i < PlayerManager.bombsRange; i++)
                 {
+                    actualParticlesInstanciated++;
                     fire1 = Instantiate(flames, this.transform.position, fireDir);
                     fire1.transform.position += (direction * (i + 1));
                 }
             }
         }
-        else 
-        {
-            GameObject fire1;
-            for (int i = 0; i < PlayerManager.bombsRange; i++)
-            {
-                fire1 = Instantiate(flames, this.transform.position, fireDir);
-                fire1.transform.position += (direction * (i + 1));
-            }
-        }
-        
+
     }
 }
 

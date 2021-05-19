@@ -323,8 +323,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mapRows: 13
-  mapColumn: 31
-  destructableColumns: 8
+  mapColumn: 37
+  destructableColumns: 54
   score: 0
   timer: 0
   player: {fileID: 2549688863070177479, guid: 8cdce5a7478c302459218ef50e7c5c96, type: 3}
