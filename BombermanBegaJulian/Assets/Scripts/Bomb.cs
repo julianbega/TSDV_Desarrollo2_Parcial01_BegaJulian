@@ -6,18 +6,24 @@ public class Bomb : MonoBehaviour
 {
     public delegate void Explode();
     public static Explode hasExploted;
+    public delegate void HitPlayer();
+    public static Explode DamagePlayer;
     public float timeToExplode;
     private float actualTimer;
     private bool allreadyExplode;
 
-    RaycastHit myHitLeft;
-    RaycastHit myHitRight;
-    RaycastHit myHitBack;
-    RaycastHit myHitForward;
-    Ray myRayLeft;
-    Ray myRayRight;
-    Ray myRayBack;
-    Ray myRayForward;
+    [SerializeField]public GameObject flames;
+
+    private RaycastHit myHitLeft;
+    private RaycastHit myHitRight;
+    private RaycastHit myHitBack;
+    private RaycastHit myHitForward;
+    private Ray myRayLeft;
+    private Ray myRayRight;
+    private Ray myRayBack;
+    private Ray myRayForward;
+
+    
     void Start()
     {
         actualTimer = 0;
@@ -33,7 +39,7 @@ public class Bomb : MonoBehaviour
             allreadyExplode = true;
             Explosion();
         }
-        if (actualTimer >= timeToExplode+1)
+        if (actualTimer >= timeToExplode + 1)
         {
             Destroy(this.gameObject);
         }
@@ -47,52 +53,66 @@ public class Bomb : MonoBehaviour
         }
     }
 
+
     void Explosion()
     {
+
         hasExploted?.Invoke();
+        
         this.GetComponent<Renderer>().enabled = false;
-       // this.GetComponentInChildren<Renderer>().enabled = false;
+        // this.GetComponentInChildren<Renderer>().enabled = false;
         this.GetComponent<Renderer>().enabled = false;
         this.GetComponent<Collider>().enabled = false;
 
+        Quaternion leftSide = new Quaternion(-1, 0, 0, 1);
+        Quaternion rightSide = new Quaternion(1, 0, 0, 1);
+        Quaternion frontSide = new Quaternion(0, 0, 1, 1);
+        Quaternion backSide = new Quaternion(0, 0, -1, 1);
+        ExplosionRaycast(myRayForward, myHitForward, Vector3.forward, frontSide);
+        ExplosionRaycast(myRayLeft, myHitLeft, Vector3.left, leftSide);
+        ExplosionRaycast(myRayRight, myHitRight, Vector3.right, rightSide);
+        ExplosionRaycast(myRayBack, myHitBack, Vector3.back, backSide);
 
-        myRayForward = new Ray(this.transform.position, Vector3.forward);
-        if (Physics.Raycast(myRayForward, out myHitForward, PlayerManager.bombsRange))
+        Instantiate(flames, this.transform.position, Quaternion.identity);  
+    }
+
+    void ExplosionRaycast(Ray myRay, RaycastHit myRHit, Vector3 direction, Quaternion fireDir)
+    {
+        myRay = new Ray(this.transform.position, direction);
+        if (Physics.Raycast(myRay, out myRHit, PlayerManager.bombsRange + 0.4f))
         {
-            if (myHitForward.transform.gameObject.tag == "DestroyablePillar")
+            if (myRHit.transform.gameObject.tag == "DestroyablePillar" || myRHit.transform.gameObject.tag == "Enemy")
             {
-                Destroy(myHitForward.transform.gameObject);
+                Destroy(myRHit.transform.gameObject);
+
+                GameObject fire1;
+                for (int i = 0; i < PlayerManager.bombsRange; i++)
+                {
+                    fire1 = Instantiate(flames, this.transform.position, fireDir);
+                    fire1.transform.position += (direction * (i + 1));
+                }
             }
-            
+            if (myRHit.transform.gameObject.tag == "Player")
+            {
+                DamagePlayer?.Invoke();
+                GameObject fire1;
+                for (int i = 0; i < PlayerManager.bombsRange; i++)
+                {
+                    fire1 = Instantiate(flames, this.transform.position, fireDir);
+                    fire1.transform.position += (direction * (i + 1));
+                }
+            }
+        }
+        else 
+        {
+            GameObject fire1;
+            for (int i = 0; i < PlayerManager.bombsRange; i++)
+            {
+                fire1 = Instantiate(flames, this.transform.position, fireDir);
+                fire1.transform.position += (direction * (i + 1));
+            }
         }
         
-        myRayLeft = new Ray(this.transform.position, Vector3.left);
-        if (Physics.Raycast(myRayLeft, out myHitLeft, PlayerManager.bombsRange))
-        {
-            if (myHitLeft.transform.gameObject.tag == "DestroyablePillar")
-            {
-                Destroy(myHitLeft.transform.gameObject);
-            }
-
-        }
-        myRayRight = new Ray(this.transform.position, Vector3.right);
-        if (Physics.Raycast(myRayRight, out myHitRight, PlayerManager.bombsRange))
-        {
-            if (myHitRight.transform.gameObject.tag == "DestroyablePillar")
-            {
-                Destroy(myHitRight.transform.gameObject);
-            }
-
-        }
-        myRayBack = new Ray(this.transform.position, Vector3.back);
-        if (Physics.Raycast(myRayBack, out myHitBack, PlayerManager.bombsRange))
-        {
-            if (myHitBack.transform.gameObject.tag == "DestroyablePillar")
-            {
-                Destroy(myHitBack.transform.gameObject);
-            }
-
-        }
-
     }
 }
+

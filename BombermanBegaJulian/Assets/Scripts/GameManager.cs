@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    [Range(3, 99)]
     public int mapRows = 13;
+    [Range(3, 99)]
     public int mapColumn = 31;
     [Range(1, 246)]
     public int destructableColumns = 10;
@@ -57,12 +59,12 @@ public class GameManager : MonoBehaviour
     void CreateDestroyablePillars(GameObject mapBase)
     {
         int posInListOfDoor = Random.Range(0, destructableColumns);
-        List<Vector3> PosibleDestroyablePillarsPositions = new List<Vector3>(); ;
+        List<Vector3> PosibleDestroyablePillarsPositions = new List<Vector3>();
         for (int i = 0; i < mapRows; i++)
         {
             for (int j = 0; j < mapColumn; j++)
             {
-                if ((j % 2 != 0 || i % 2 != 0) && j != mapColumn - 1 && i != mapRows - 1 && j !=0&& i !=0 )
+                if ((j % 2 != 0 || i % 2 != 0) && j != mapColumn - 1 && i != mapRows - 1 && j !=0 && i !=0 )
                 {
                     if (j == 1 && i == 1 || j == 1 && i == 2 || j == 2 && i == 1) { }
                     else
@@ -90,6 +92,7 @@ public class GameManager : MonoBehaviour
                 door.transform.gameObject.tag = "Door";
                 door.name = "Door";
                 door.isStatic = true;
+                door.GetComponent<Collider>().isTrigger = true;
             }
             dPillar.transform.position = PosibleDestroyablePillarsPositions[actualDPillar];
             PosibleDestroyablePillarsPositions.Remove(PosibleDestroyablePillarsPositions[actualDPillar]);

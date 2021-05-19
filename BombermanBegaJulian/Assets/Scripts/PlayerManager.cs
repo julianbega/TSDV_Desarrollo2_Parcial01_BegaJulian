@@ -13,16 +13,18 @@ public class PlayerManager : MonoBehaviour
     private bool allreadyMovingLeftOrRight = false;
     public int maxBombs = 1;
     public int actualBombs = 0;
-    public static int bombsRange = 1;
+    [SerializeField]public static int bombsRange =1;
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
         Bomb.hasExploted += ReduceActualBombs;
+        Bomb.DamagePlayer += GetDamage;
     }
 
     private void OnDisable()
     {
         Bomb.hasExploted -= ReduceActualBombs;
+        Bomb.DamagePlayer -= GetDamage;
     }
     // Update is called once per frame
     void Update()
@@ -34,7 +36,10 @@ public class PlayerManager : MonoBehaviour
             Instantiate(bombPrefab, new Vector3((float)Math.Round(transform.position.x, 0), transform.position.y, (float)Math.Round(transform.position.z, 0)), Quaternion.identity);
         }
     }
-
+    void GetDamage()
+    {
+        playerLives--;
+    }
     void ReduceActualBombs()
     {
         actualBombs--;
