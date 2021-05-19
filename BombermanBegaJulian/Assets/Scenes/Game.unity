@@ -416,10 +416,15 @@ MonoBehaviour:
   mapColumn: 31
   destructableColumns: 82
   player: {fileID: 2549688863070177479, guid: 8cdce5a7478c302459218ef50e7c5c96, type: 3}
-  redEnemy: {fileID: 0}
-  redEnemiesToSpawn: 0
-  purpleEnemiesToSpawn: 0
-  yellowEnemiesToSpawn: 0
+  redEnemyPrefab: {fileID: 1812807231719350055, guid: 98b44a665a49d694d83da5d372cb2ed8,
+    type: 3}
+  purpleEnemyPrefab: {fileID: 5047492232194858237, guid: b38430214f7601441895827d09b8f1ef,
+    type: 3}
+  yellowEnemyPrefab: {fileID: 9105380895193003858, guid: dcfa53f2e3274194b9e65db12b906289,
+    type: 3}
+  redEnemiesCuantity: 3
+  purpleEnemiesCuantity: 1
+  yellowEnemiesCuantity: 1
   totalEnemies: 0
   score: 0
   timer: 0

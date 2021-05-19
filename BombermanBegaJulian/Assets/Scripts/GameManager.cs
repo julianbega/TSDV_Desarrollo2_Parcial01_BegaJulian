@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
     List<Vector3> FreePositionsToSpawn = new List<Vector3>();
     void Start()
     {
+        Bomb.ReduceTotalEnemies += ReduceTotalEnemies;
         totalEnemies = redEnemiesCuantity + purpleEnemiesCuantity + yellowEnemiesCuantity;
         if (mapRows % 2 == 0)
         {
@@ -53,6 +54,11 @@ public class GameManager : MonoBehaviour
         SpawnEnemies(redEnemyPrefab, redEnemiesCuantity);
         SpawnEnemies(purpleEnemyPrefab, purpleEnemiesCuantity);
         SpawnEnemies(yellowEnemyPrefab, yellowEnemiesCuantity);
+    }
+
+    private void OnDisable()
+    {       
+        Bomb.ReduceTotalEnemies -= ReduceTotalEnemies;
     }
 
     void Update()
@@ -167,4 +173,10 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
+    private void ReduceTotalEnemies()
+    {
+        totalEnemies--;
+    }
+
 }

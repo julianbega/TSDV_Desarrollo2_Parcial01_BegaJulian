@@ -5,7 +5,9 @@ public class Bomb : MonoBehaviour
     public delegate void Explode();
     public static Explode hasExploted;
     public delegate void HitPlayer();
-    public static Explode DamagePlayer;
+    public static HitPlayer DamagePlayer;
+    public delegate void HitEnemy();
+    public static HitEnemy ReduceTotalEnemies;
     public float timeToExplode;
     private float actualTimer;
     public bool allreadyHitLeftPillar;
@@ -15,6 +17,8 @@ public class Bomb : MonoBehaviour
     private bool allreadyHitPlayer;
     private int actualParticlesInstanciated;
     private int particlesToInstanciate;
+
+    private bool alrreadyExplode;
 
     [SerializeField]public GameObject flames;
 
@@ -30,13 +34,14 @@ public class Bomb : MonoBehaviour
     
     void Start()
     {
+        alrreadyExplode = false;
         allreadyHitLeftPillar = false;
         allreadyHitRightPillar = false;
         allreadyHitFrontPillar = false;
         allreadyHitBackPillar = false;
         allreadyHitPlayer = false;
         actualParticlesInstanciated = 0;
-        particlesToInstanciate = PlayerManager.bombsRange *4 + 1;
+        particlesToInstanciate = PlayerManager.bombsRange * 4 + 1;
         actualTimer = 0;
     }
 
@@ -65,9 +70,12 @@ public class Bomb : MonoBehaviour
 
     void Explosion()
     {
-
+        if (alrreadyExplode == false)
+        { 
+        alrreadyExplode = true;
         hasExploted?.Invoke();
-        
+        }
+
         this.GetComponent<Renderer>().enabled = false;
         this.GetComponentsInChildren<Renderer>()[1].enabled = false;
         this.GetComponentsInChildren<Renderer>()[2].enabled = false;
@@ -113,6 +121,12 @@ public class Bomb : MonoBehaviour
                     fire1 = Instantiate(flames, this.transform.position, fireDir);
                     fire1.transform.position += (direction * (i + 1));
                 }
+
+            }
+            if (myRHit.transform.gameObject.tag == "Enemy" && PillarHitted == false)
+            {
+                ReduceTotalEnemies?.Invoke();
+                Destroy(myRHit.transform.gameObject);
 
             }
             if (myRHit.transform.gameObject.tag == "Player" && allreadyHitPlayer == false && PillarHitted == false)
