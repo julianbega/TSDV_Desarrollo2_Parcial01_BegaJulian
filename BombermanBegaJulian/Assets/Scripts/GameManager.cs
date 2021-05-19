@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
 
     public GameObject player;
     public GameObject redEnemy;
+    public GameObject purpleEnemy;
+    public GameObject yellowEnemy;
 
     public int redEnemiesToSpawn;
     public int purpleEnemiesToSpawn;
@@ -49,10 +51,16 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
         CreateMap();
         Instantiate(player, new Vector3(1, player.transform.localScale.y/2, 1), Quaternion.identity);
-        SpawnRedEnemies();
+        SpawnEnemies(redEnemy, redEnemiesToSpawn);
+        SpawnEnemies(purpleEnemy, purpleEnemiesToSpawn);
+        SpawnEnemies(yellowEnemy, yellowEnemiesToSpawn);
     }
 
-   
+
+
+
+
+
 
     // Update is called once per frame
     void Update()
@@ -96,20 +104,20 @@ public class GameManager : MonoBehaviour
         
         for (int i = 0; i < destructableColumns; i++)
         {            
-            GameObject dPillar = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            int actualDPillar = UnityEngine.Random.Range(0, FreePositionsToSpawn.Count);
+            GameObject desPillar = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            int actualDesPillar = UnityEngine.Random.Range(0, FreePositionsToSpawn.Count);
             if (i == posInListOfDoor)
             {
-                CreatDoor(actualDPillar);
+                CreatDoor(actualDesPillar);
                
             }
-            dPillar.transform.position = FreePositionsToSpawn[actualDPillar];
-            FreePositionsToSpawn.Remove(FreePositionsToSpawn[actualDPillar]);
-            dPillar.transform.SetParent(DPillarsParent.transform);
-            dPillar.GetComponent<Renderer>().material.color = Color.black;
-            dPillar.transform.gameObject.tag = "DestroyablePillar";
-            dPillar.name = "DestroyablePillar";
-            dPillar.isStatic = true;
+            desPillar.transform.position = FreePositionsToSpawn[actualDesPillar];
+            FreePositionsToSpawn.Remove(FreePositionsToSpawn[actualDesPillar]);
+            desPillar.transform.SetParent(DPillarsParent.transform);
+            desPillar.GetComponent<Renderer>().material.color = Color.black;
+            desPillar.transform.gameObject.tag = "DestroyablePillar";
+            desPillar.name = "DestroyablePillar";
+            desPillar.isStatic = true;
 
         }
 
@@ -127,9 +135,18 @@ public class GameManager : MonoBehaviour
         door.isStatic = true;
         door.GetComponent<Collider>().isTrigger = true;
     }
-    private void SpawnRedEnemies()
-    {
 
+    private void SpawnEnemies(GameObject EnemyPrefab, int EnemyCount)
+    {
+        for (int i = 0; i < EnemyCount; i++)
+        {
+            int actualEnemy = UnityEngine.Random.Range(0, FreePositionsToSpawn.Count);
+            GameObject Enemy;
+            Enemy = Instantiate(EnemyPrefab, new Vector3(FreePositionsToSpawn[actualEnemy].x, EnemyPrefab.transform.localScale.y / 2, FreePositionsToSpawn[actualEnemy].z), Quaternion.identity);
+
+            FreePositionsToSpawn.Remove(FreePositionsToSpawn[actualEnemy]);
+            Enemy.transform.SetParent(EnemiesParent.transform);
+        }
     }
 
     private void CreateSpawnPositionList()
