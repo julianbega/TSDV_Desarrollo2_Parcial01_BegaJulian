@@ -18,6 +18,7 @@ public class CameraController : MonoBehaviour
 
     private void Start()
     {
+        start = false;
         allreadyFocusCamera = false;
         smothSpeed = 5;
     }

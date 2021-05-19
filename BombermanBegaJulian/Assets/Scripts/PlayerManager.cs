@@ -1,7 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System;
+﻿using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -29,8 +28,13 @@ public class PlayerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (playerLives <= 0)
+        {
+            Destroy(gameManager.gameObject);
+            SceneManager.LoadScene("Game");
+        }
         PlayerMovment();
-        if (Input.GetKey(KeyCode.Space) && actualBombs < maxBombs)
+        if (Input.GetKeyDown(KeyCode.Space) && actualBombs < maxBombs)
         {
             actualBombs++;
             Instantiate(bombPrefab, new Vector3((float)Math.Round(transform.position.x, 0), transform.position.y, (float)Math.Round(transform.position.z, 0)), Quaternion.identity);
