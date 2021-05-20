@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 5649941590118200326}
   - component: {fileID: 2527220341395867774}
   - component: {fileID: 7705812772871835941}
+  - component: {fileID: 5951269327041357665}
+  - component: {fileID: 6095251063001095642}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -109,7 +111,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerLives: 2
-  speed: 3
   bombPrefab: {fileID: 4156313389858560205, guid: 0fabb46673101ab4e80f34b1010be4aa,
     type: 3}
   maxBombs: 1
@@ -130,3 +131,30 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
+--- !u!136 &5951269327041357665
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2549688863070177479}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6095251063001095642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2549688863070177479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f157ec18a782c0c45a2a85b104571da8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 3

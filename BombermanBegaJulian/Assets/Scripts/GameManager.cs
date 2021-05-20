@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     public GameObject redEnemyPrefab;
     public GameObject purpleEnemyPrefab;
     public GameObject yellowEnemyPrefab;
+    public GameObject doorPrefab;
 
     public int redEnemiesCuantity;
     public int purpleEnemiesCuantity;
@@ -28,6 +29,9 @@ public class GameManager : MonoBehaviour
     public GameObject DPillarsParent;
     public GameObject EnemiesParent;
     public GameObject DoorParent;
+
+    public delegate void DoorIsOpen();
+    public static DoorIsOpen checkOpenDoor;
 
     List<Vector3> FreePositionsToSpawn = new List<Vector3>();
     void Start()
@@ -59,6 +63,7 @@ public class GameManager : MonoBehaviour
     private void OnDisable()
     {       
         Bomb.ReduceTotalEnemies -= ReduceTotalEnemies;
+       
     }
 
     void Update()
@@ -126,15 +131,9 @@ public class GameManager : MonoBehaviour
 
     }
     private void CreatDoor(int pos)
-    {
-        GameObject door = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        door.transform.position = FreePositionsToSpawn[pos];
-        door.transform.SetParent(DoorParent.transform);
-        door.GetComponent<Renderer>().material.color = Color.red;
-        door.transform.localScale = new Vector3(door.transform.localScale.x - door.transform.localScale.x / 3, door.transform.localScale.y - door.transform.localScale.y / 3, door.transform.localScale.z - door.transform.localScale.z / 3);
-        door.transform.gameObject.tag = "Door";
-        door.name = "Door";
-        door.isStatic = true;
+    {        
+        GameObject door = Instantiate(doorPrefab, new Vector3(FreePositionsToSpawn[pos].x, -0.45f, FreePositionsToSpawn[pos].z), Quaternion.identity);
+        door.transform.SetParent(DoorParent.transform);       
         door.GetComponent<Collider>().isTrigger = true;
     }
 
@@ -177,6 +176,10 @@ public class GameManager : MonoBehaviour
     private void ReduceTotalEnemies()
     {
         totalEnemies--;
+        if (totalEnemies <= 0)
+        { 
+        checkOpenDoor?.Invoke();
+        }
     }
 
 }
