@@ -6,12 +6,10 @@ public class PlayerMovment : MonoBehaviour
 
     public bool allreadyMovingUpOrDown = false;
     public bool allreadyMovingLeftOrRight = false;
-    private GameManager gameManager;
     public float speed = 1;
 
     void Start()
     {
-        gameManager = FindObjectOfType<GameManager>();
     }
 
     void Update()
@@ -40,8 +38,7 @@ public class PlayerMovment : MonoBehaviour
     }
 
     public void Move(Vector3 direction, bool horizontalMovment, ref bool allreadyMovindDir)
-    {
-        
+    {        
         RaycastHit myHit;
         Ray myRay;
         myRay = new Ray(this.transform.position, direction);

@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour
         }
         DontDestroyOnLoad(this.gameObject);
         CreateMap();
-        Instantiate(player, new Vector3(1, player.transform.localScale.y/2, 1), Quaternion.identity);
+        Instantiate(player, new Vector3(1, player.transform.lossyScale.y/3, 1), Quaternion.identity);
         SpawnEnemies(redEnemyPrefab, redEnemiesCuantity);
         SpawnEnemies(purpleEnemyPrefab, purpleEnemiesCuantity);
         SpawnEnemies(yellowEnemyPrefab, yellowEnemiesCuantity);
