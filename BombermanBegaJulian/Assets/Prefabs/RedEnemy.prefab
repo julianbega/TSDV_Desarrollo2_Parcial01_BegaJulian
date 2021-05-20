@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4963215368920879240}
   - component: {fileID: 8458875755986099369}
   - component: {fileID: 1802765488971316113}
+  - component: {fileID: -7914516181093351186}
   m_Layer: 0
   m_Name: RedEnemy
   m_TagString: Enemy
@@ -94,3 +95,16 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-7914516181093351186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1812807231719350055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cc377a68e2b208468d4c4c745a2d002, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 2

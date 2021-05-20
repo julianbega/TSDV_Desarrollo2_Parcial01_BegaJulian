@@ -27,75 +27,43 @@ public class RedEnemyMovment : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        int dir = 4;
         if (!isMoving)
         {
-
-           int dir = SelectRandomDirection();
-
+            dir = SelectRandomDirection();
+            this.transform.position = new Vector3((float)Math.Round(transform.position.x, 0), transform.position.y, (float)Math.Round(transform.position.z, 0));
             switch (dir)
-            {
+            {                 
                 case 0:
-                    Target = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z+1);
-                    Move(Vector3.forward, true);
+                    Target = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z + 1);
                     break;
                 case 1:
-                    Target = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z-1);
-                    Move(Vector3.back, true);
+                    Target = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z - 1);
                     break;
                 case 2:
-                    Target = new Vector3(this.transform.position.x+1, this.transform.position.y, this.transform.position.z);
-                    Move(Vector3.right, false);
+                    Target = new Vector3(this.transform.position.x + 1, this.transform.position.y, this.transform.position.z);
                     break;
                 case 3:
-                    Target = new Vector3(this.transform.position.x-1, this.transform.position.y, this.transform.position.z);
-                    Move(Vector3.left, false);
+                    Target = new Vector3(this.transform.position.x - 1, this.transform.position.y, this.transform.position.z);
                     break;
                 case 4:
-                    
+
                     break;
                 default:
                     break;
             }
         }
+        Move();
+
     }
-    public void Move(Vector3 direction, bool horizontalMovment)
+    public void Move()
     {
-        RaycastHit myHit;
-        Ray myRay;
-        myRay = new Ray(this.transform.position, direction);
-        if (Physics.Raycast(myRay, out myHit, 0.5f))
+        isMoving = true;
+        transform.position = Vector3.MoveTowards(this.transform.position, Target, speed * Time.deltaTime);
+        if (transform.position == Target)
         {
-            if (myHit.transform.gameObject.tag == "DestroyablePillar" || myHit.transform.gameObject.tag == "Map")
-            {
-            }
-            else
-            {
-                transform.position += direction * speed * Time.deltaTime;
-                Vector3 newPos = Vector3.zero;
-                if (horizontalMovment)
-                {
-                    newPos = new Vector3((float)Math.Round(transform.position.x, 0), transform.position.y, transform.position.z);
-                }
-                else
-                {
-                    newPos = new Vector3(transform.position.x, transform.position.y, (float)Math.Round(transform.position.z, 0));
-                }
-                transform.position = Vector3.Lerp(transform.position, newPos, 1);
-            }
-        }
-        else
-        {
-            transform.position += direction * speed * Time.deltaTime;
-            Vector3 newPos = Vector3.zero;
-            if (horizontalMovment)
-            {
-                newPos = new Vector3((float)Math.Round(transform.position.x, 0), transform.position.y, transform.position.z);
-            }
-            else
-            {
-                newPos = new Vector3(transform.position.x, transform.position.y, (float)Math.Round(transform.position.z, 0));
-            }
-            transform.position = Vector3.Lerp(transform.position, newPos, 1);
+            isMoving = false;
         }
     }
 
