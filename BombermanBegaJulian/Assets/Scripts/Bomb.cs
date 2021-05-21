@@ -9,7 +9,7 @@ public class Bomb : MonoBehaviour
     public delegate void HitEnemy();
     public static HitEnemy ReduceTotalEnemies;
     public float timeToExplode;
-    private float actualTimer;
+    public float actualTimer;
     public bool allreadyHitLeftPillar;
     public bool allreadyHitRightPillar;
     public bool allreadyHitFrontPillar;
@@ -79,7 +79,6 @@ public class Bomb : MonoBehaviour
         this.GetComponent<Renderer>().enabled = false;
         this.GetComponentsInChildren<Renderer>()[1].enabled = false;
         this.GetComponentsInChildren<Renderer>()[2].enabled = false;
-
         this.GetComponent<Collider>().enabled = false;
 
         Quaternion leftSide = new Quaternion(-1, 0, 0, 1);
@@ -128,6 +127,11 @@ public class Bomb : MonoBehaviour
                 ReduceTotalEnemies?.Invoke();
                 Destroy(myRHit.transform.gameObject);
 
+            }
+            if (myRHit.transform.gameObject.tag == "Bomb" && PillarHitted == false)
+            {
+                Bomb myBomb = myRHit.transform.GetComponent<Bomb>();
+                myBomb.actualTimer = myBomb.timeToExplode;
             }
             if (myRHit.transform.gameObject.tag == "Player" && allreadyHitPlayer == false && PillarHitted == false)
             {
