@@ -9,13 +9,17 @@ public class PlayerManager : MonoBehaviour
     public GameObject bombPrefab;
     public int maxBombs = 1;
     public int actualBombs = 0;
-    [SerializeField]public static int bombsRange =1
-        ;
+    [SerializeField]public static int bombsRange =1;
+
+    public float invulnerabilityTimeAfterHit;
+    bool wasHitted;
+    float timer;
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
         Bomb.hasExploted += ReduceActualBombs;
         Bomb.DamagePlayer += GetDamage;
+        RedEnemyMovment.DamagePlayer += GetDamage;
     }
 
     private void OnDisable()
@@ -26,6 +30,15 @@ public class PlayerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (wasHitted)
+        {
+            timer += Time.deltaTime;
+        }
+        if (timer >= invulnerabilityTimeAfterHit)
+        {
+            timer = 0;
+            wasHitted = false;
+        }
         if (playerLives <= 0)
         {
             Destroy(gameManager.gameObject);
@@ -39,8 +52,12 @@ public class PlayerManager : MonoBehaviour
     }
     void GetDamage()
     {
-        this.transform.position = new Vector3(1, this.transform.localScale.y / 2, 1);
-        playerLives--;
+        if (!wasHitted)
+        {
+            wasHitted = true;
+            this.transform.position = new Vector3(1, this.transform.lossyScale.y / 3, 1);
+            playerLives--;
+        }
     }
     void ReduceActualBombs()
     {

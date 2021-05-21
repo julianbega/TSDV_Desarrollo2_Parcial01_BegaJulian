@@ -19,6 +19,9 @@ public class RedEnemyMovment : MonoBehaviour
     private Ray myRayBack;
     private Ray myRayForward;
 
+    public delegate void HitPlayer();
+    public static HitPlayer DamagePlayer;
+
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
@@ -101,6 +104,14 @@ public class RedEnemyMovment : MonoBehaviour
             return true;
         }
         return true;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.transform.tag == "Player")
+        {
+            DamagePlayer?.Invoke();
+        }
     }
 }
 

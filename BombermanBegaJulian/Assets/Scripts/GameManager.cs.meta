@@ -3,7 +3,21 @@ guid: 088fae1680de51f4c83797c31d4d1d71
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - player: {fileID: 2549688863070177479, guid: 8cdce5a7478c302459218ef50e7c5c96,
+      type: 3}
+  - redEnemyPrefab: {fileID: 1812807231719350055, guid: 98b44a665a49d694d83da5d372cb2ed8,
+      type: 3}
+  - purpleEnemyPrefab: {fileID: 5047492232194858237, guid: b38430214f7601441895827d09b8f1ef,
+      type: 3}
+  - yellowEnemyPrefab: {fileID: 9105380895193003858, guid: dcfa53f2e3274194b9e65db12b906289,
+      type: 3}
+  - doorPrefab: {fileID: 9216840699375339926, guid: 331b4cf0724536746ad45d4c8c9fd819,
+      type: 3}
+  - PillarsParent: {instanceID: 0}
+  - DPillarsParent: {instanceID: 0}
+  - EnemiesParent: {instanceID: 0}
+  - DoorParent: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
