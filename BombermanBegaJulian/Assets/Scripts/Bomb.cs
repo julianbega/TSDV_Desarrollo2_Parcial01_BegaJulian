@@ -96,11 +96,6 @@ public class Bomb : MonoBehaviour
             Instantiate(flames, this.transform.position, Quaternion.identity);
             actualParticlesInstanciated++;
         }
-
-        Debug.Log("allreadyHitFrontPillar " + allreadyHitFrontPillar);
-        Debug.Log("allreadyHitLeftPillar" + allreadyHitLeftPillar);
-        Debug.Log("allreadyHitRightPillar" + allreadyHitRightPillar);
-        Debug.Log("allreadyHitBackPillar" + allreadyHitBackPillar);
     }
 
     void ExplosionRaycast(Ray myRay, RaycastHit myRHit, Vector3 direction, Quaternion fireDir, ref bool PillarHitted)
@@ -122,8 +117,15 @@ public class Bomb : MonoBehaviour
                 }
 
             }
-            if (myRHit.transform.gameObject.tag == "Enemy" && PillarHitted == false)
+            if ((myRHit.transform.gameObject.tag == "Enemy" || myRHit.transform.gameObject.tag == "RedEnemy" ) && PillarHitted == false)
             {
+                GameObject fire1;
+                for (int i = 0; i < Mathf.Ceil(myRHit.distance); i++)
+                {
+                    actualParticlesInstanciated++;
+                    fire1 = Instantiate(flames, this.transform.position, fireDir);
+                    fire1.transform.position += (direction * (i + 1));
+                }
                 ReduceTotalEnemies?.Invoke();
                 Destroy(myRHit.transform.gameObject);
 

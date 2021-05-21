@@ -424,7 +424,7 @@ MonoBehaviour:
     type: 3}
   doorPrefab: {fileID: 9216840699375339926, guid: 331b4cf0724536746ad45d4c8c9fd819,
     type: 3}
-  redEnemiesCuantity: 1
+  redEnemiesCuantity: 8
   purpleEnemiesCuantity: 0
   yellowEnemiesCuantity: 0
   totalEnemies: 0

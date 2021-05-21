@@ -8,6 +8,7 @@ public class RedEnemyMovment : MonoBehaviour
     private GameManager gameManager;
     public float speed = 1;
     Vector3 Target;
+    Vector3 Origin;
     bool isMoving;
 
     private RaycastHit myHitLeft;
@@ -24,6 +25,9 @@ public class RedEnemyMovment : MonoBehaviour
 
     void Start()
     {
+        Target = this.transform.position;
+        Origin = Target;
+        isMoving = false;
         gameManager = FindObjectOfType<GameManager>();
     }
 
@@ -36,6 +40,7 @@ public class RedEnemyMovment : MonoBehaviour
         {
             dir = SelectRandomDirection();
             this.transform.position = new Vector3((float)Math.Round(transform.position.x, 0), transform.position.y, (float)Math.Round(transform.position.z, 0));
+            Origin = this.transform.position;
             switch (dir)
             {                 
                 case 0:
@@ -92,9 +97,9 @@ public class RedEnemyMovment : MonoBehaviour
     bool CheckDir(Ray myRay, RaycastHit myRHit, Vector3 direction)
     {
         myRay = new Ray(this.transform.position, direction);
-        if (Physics.Raycast(myRay, out myRHit, PlayerManager.bombsRange + 0.4f))
+        if (Physics.Raycast(myRay, out myRHit, 1.4f))
         {
-            if (myRHit.transform.gameObject.tag == "DestroyablePillar" || myRHit.transform.gameObject.tag == "Map")
+            if (myRHit.transform.gameObject.tag == "DestroyablePillar" || myRHit.transform.gameObject.tag == "Map" || myRHit.transform.gameObject.tag == "Bomnb")
             {
                 return false;
             }                    
@@ -108,10 +113,16 @@ public class RedEnemyMovment : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.transform.tag == "Player")
+        Debug.Log("choca con algo");
+        if (collision.transform.tag == "Player")
         {
             DamagePlayer?.Invoke();
         }
+        if (collision.transform.tag == "RedEnemy" || collision.transform.tag == "Bomb")
+        {
+            Debug.Log("chocan 2 enemigos");
+            Target = Origin;
+        }
     }
-}
+ }
 
