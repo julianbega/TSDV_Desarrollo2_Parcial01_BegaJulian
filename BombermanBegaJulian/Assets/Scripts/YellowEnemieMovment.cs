@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using System;
 
-public class RedEnemyMovment : MonoBehaviour
-{ 
+public class YellowEnemieMovment : MonoBehaviour
+{
     public float speed = 1;
     Vector3 Target;
     Vector3 Origin;
@@ -38,7 +38,7 @@ public class RedEnemyMovment : MonoBehaviour
             this.transform.position = new Vector3((float)Math.Round(transform.position.x, 0), transform.position.y, (float)Math.Round(transform.position.z, 0));
             Origin = this.transform.position;
             switch (dir)
-            {                 
+            {
                 case 0:
                     Target = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z + 1);
                     break;
@@ -79,7 +79,7 @@ public class RedEnemyMovment : MonoBehaviour
         bool CanGoLeft = CheckDir(myRayLeft, myHitLeft, Vector3.left);
 
         int dir = UnityEngine.Random.Range(0, 4);
-        if (CanGoForward == false && CanGoBack == false && CanGoRight == false && CanGoLeft == false )
+        if (CanGoForward == false && CanGoBack == false && CanGoRight == false && CanGoLeft == false)
         {
             return 4;
         }
@@ -98,7 +98,7 @@ public class RedEnemyMovment : MonoBehaviour
             if (myRHit.transform.gameObject.tag == "DestroyablePillar" || myRHit.transform.gameObject.tag == "Map" || myRHit.transform.gameObject.tag == "Bomnb")
             {
                 return false;
-            }                    
+            }
         }
         else
         {
@@ -120,5 +120,4 @@ public class RedEnemyMovment : MonoBehaviour
             Target = Origin;
         }
     }
- }
-
+}

@@ -62,8 +62,7 @@ public class GameManager : MonoBehaviour
 
     private void OnDisable()
     {       
-        Bomb.ReduceTotalEnemies -= ReduceTotalEnemies;
-       
+        Bomb.ReduceTotalEnemies -= ReduceTotalEnemies;       
     }
 
     void Update()
