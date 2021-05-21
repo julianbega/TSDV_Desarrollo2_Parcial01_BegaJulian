@@ -117,7 +117,7 @@ public class Bomb : MonoBehaviour
                 }
 
             }
-            if ((myRHit.transform.gameObject.tag == "Enemy" || myRHit.transform.gameObject.tag == "RedEnemy" ) && PillarHitted == false)
+            if ((myRHit.transform.gameObject.tag == "YellowEnemy" || myRHit.transform.gameObject.tag == "RedEnemy" || myRHit.transform.gameObject.tag == "PurpleEnemy") && PillarHitted == false)
             {
                 GameObject fire1;
                 for (int i = 0; i < Mathf.Ceil(myRHit.distance); i++)

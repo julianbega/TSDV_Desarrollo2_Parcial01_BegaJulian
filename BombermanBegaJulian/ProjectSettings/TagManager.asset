@@ -9,6 +9,9 @@ TagManager:
   - Map
   - Bomb
   - Enemy
+  - RedEnemy
+  - YellowEnemy
+  - PurpleEnemy
   layers:
   - Default
   - TransparentFX

@@ -412,9 +412,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 088fae1680de51f4c83797c31d4d1d71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapRows: 11
-  mapColumn: 15
-  destructableColumns: 1
+  mapRows: 19
+  mapColumn: 19
+  destructableColumns: 58
   player: {fileID: 2549688863070177479, guid: 8cdce5a7478c302459218ef50e7c5c96, type: 3}
   redEnemyPrefab: {fileID: 1812807231719350055, guid: 98b44a665a49d694d83da5d372cb2ed8,
     type: 3}
