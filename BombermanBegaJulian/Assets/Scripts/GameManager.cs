@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     public int purpleEnemiesCuantity;
     public int yellowEnemiesCuantity;
     public int totalEnemies = 0;
+    public int pointsPerEnemyKill;
 
     public int score = 0;
     public float timer = 0;
@@ -208,13 +209,10 @@ public class GameManager : MonoBehaviour
     {
         totalEnemies--;
         if (totalEnemies <= 0)
-        { 
-        checkOpenDoor?.Invoke();
+        {
+            score += pointsPerEnemyKill;
+            checkOpenDoor?.Invoke();
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        
-    }
 }
