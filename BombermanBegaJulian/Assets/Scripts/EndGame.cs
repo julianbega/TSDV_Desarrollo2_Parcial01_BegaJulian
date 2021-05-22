@@ -18,8 +18,9 @@ public class EndGame : MonoBehaviour
 
     void Start()
     {
+        Debug.Log("" + PlayerManager.playerLives);  
         gm = FindObjectOfType<GameManager>();
-        if (GameManager.victory)
+        if (PlayerManager.playerLives >= 1)
         {
             Victoy.enabled = true;
         }
@@ -33,8 +34,14 @@ public class EndGame : MonoBehaviour
         BombRange.text = "BombRange: " + PlayerManager.bombsRange;
         int realEnemiesKilled = ((/*gm.yellowEnemiesCuantity + gm.purpleEnemiesCuantity + */gm.redEnemiesCuantity) - gm.totalEnemies);
         EnemiesKilled.text = "EnemiesKilled: " + realEnemiesKilled;
-        Lives.text = "PlayerLives: " + PlayerManager.playerLives;
-
+        if (PlayerManager.playerLives >= 1)
+        {
+            Lives.text = "PlayerLives: " + PlayerManager.playerLives;
+        }
+        else
+        {
+            Lives.text = " ";
+        }
         int sec = (int)gm.timer % 60;
         int min = (int)gm.timer / 60;
 

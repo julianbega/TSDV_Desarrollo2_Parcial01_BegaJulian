@@ -28,8 +28,15 @@ public class Door : MonoBehaviour
         }
     }
 
-    private void OpenDoor()
+    private void OpenDoor(int enemies)
     {
-        isDoorOpen = true;
+        if (enemies <= 0)
+        {
+            isDoorOpen = true;
+        }
+        else
+        {
+            isDoorOpen = false;
+        }
     }
 }

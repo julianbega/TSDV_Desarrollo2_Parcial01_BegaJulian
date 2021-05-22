@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cff784da6ded7d24b96fbf045b087d21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Victoy: {fileID: 316599101}
+  Victoy: {fileID: 1775678047}
   Defeat: {fileID: 316599101}
   Timer: {fileID: 1045245023}
   Score: {fileID: 94452849}
@@ -206,7 +206,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -282, y: 30}
+  m_AnchoredPosition: {x: -282, y: -20}
   m_SizeDelta: {x: 200, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &94452848
@@ -796,7 +796,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -282, y: -20}
+  m_AnchoredPosition: {x: -282, y: 30}
   m_SizeDelta: {x: 200, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1729039138

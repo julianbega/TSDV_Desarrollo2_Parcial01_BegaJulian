@@ -47,8 +47,9 @@ public class GameManager : MonoBehaviour
     public GameObject HPPowerUp;
     public GameObject MaxBombPowerUp;
 
-    public delegate void DoorIsOpen();
+    public delegate void DoorIsOpen(int enemies);
     public static DoorIsOpen checkOpenDoor;
+
 
     List<Vector3> FreePositionsToSpawn = new List<Vector3>();
     void Start()
@@ -75,6 +76,8 @@ public class GameManager : MonoBehaviour
         SpawnEnemies(redEnemyPrefab, redEnemiesCuantity);
         SpawnEnemies(purpleEnemyPrefab, purpleEnemiesCuantity);
         SpawnEnemies(yellowEnemyPrefab, yellowEnemiesCuantity);
+
+        checkOpenDoor?.Invoke(totalEnemies);
     }
 
     private void OnDisable()
@@ -208,11 +211,8 @@ public class GameManager : MonoBehaviour
     private void ReduceTotalEnemies()
     {
         totalEnemies--;
-        if (totalEnemies <= 0)
-        {
-            score += pointsPerEnemyKill;
-            checkOpenDoor?.Invoke();
-        }
+        score += pointsPerEnemyKill;
+        checkOpenDoor?.Invoke(totalEnemies);
     }
 
 }

@@ -13,11 +13,14 @@ public class CameraController : MonoBehaviour
 
     private Vector3 posToMoveTowards;
 
-    float timer;
     private void Start()
     {
-        timer = 0;
         lookAtThat = FindObjectOfType<PlayerManager>();
+        LookAtPlayer();
+    }
+
+    private void OnDisable()
+    {
     }
     void LateUpdate()
     {
@@ -28,14 +31,14 @@ public class CameraController : MonoBehaviour
         }
         MoveCameraToFolowTarget();
 
-        if (timer <= 0.1)
+        if (this.transform.rotation.x > 70 || this.transform.rotation.y < 75 || this.transform.rotation.y > 103)
         {
-            timer += Time.deltaTime;
             LookAtPlayer();
         }
     }
     public void LookAtPlayer()
     {
+        Debug.Log("look at player");
         transform.LookAt(lookAtThat.transform);
     }
     public void MoveCameraToFolowTarget()

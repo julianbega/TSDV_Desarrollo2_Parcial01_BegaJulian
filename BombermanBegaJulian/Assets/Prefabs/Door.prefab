@@ -106,5 +106,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7d1f07c595c39449a02945ed98d7473, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isDoorOpen: 0
+  isDoorOpen: 1
   endGame: 0
