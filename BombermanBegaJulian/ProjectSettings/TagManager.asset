@@ -12,6 +12,9 @@ TagManager:
   - RedEnemy
   - YellowEnemy
   - PurpleEnemy
+  - MaxBombPowerUp
+  - HPPowerUp
+  - BombRangePowerUp
   layers:
   - Default
   - TransparentFX

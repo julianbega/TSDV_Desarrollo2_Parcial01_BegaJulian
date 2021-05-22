@@ -25,7 +25,6 @@ public class GameManager : MonoBehaviour
 
     public int score = 0;
     public float timer = 0;
-
     public static bool victory = true;
 
 

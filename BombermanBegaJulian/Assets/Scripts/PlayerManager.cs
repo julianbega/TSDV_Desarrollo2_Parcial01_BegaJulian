@@ -4,12 +4,15 @@ using UnityEngine.SceneManagement;
 
 public class PlayerManager : MonoBehaviour
 {
-    public int playerLives = 3;
-    private GameManager gameManager;
+    public int startingLives = 3;
+    public static int playerLives = 3;
     public GameObject bombPrefab;
-    public int maxBombs = 1;
+    public int startingMaxBombs;
+    public static int maxBombs = 1;
     public int actualBombs = 0;
-    [SerializeField]public static int bombsRange =1;
+
+    public int startingBombsRange;
+    public static int bombsRange =1;
 
     public float invulnerabilityTimeAfterHit;
     bool wasHitted;
@@ -20,7 +23,9 @@ public class PlayerManager : MonoBehaviour
 
     void Start()
     {
-        gameManager = FindObjectOfType<GameManager>();
+        bombsRange = startingBombsRange;
+        maxBombs = startingMaxBombs;
+        playerLives = startingLives;
         Bomb.hasExploted += ReduceActualBombs;
         Bomb.DamagePlayer += GetDamage;
         RedEnemyMovment.DamagePlayer += GetDamage;

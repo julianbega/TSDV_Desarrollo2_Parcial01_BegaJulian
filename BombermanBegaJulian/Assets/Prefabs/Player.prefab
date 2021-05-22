@@ -110,11 +110,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 210d01c6c80a7db4896027cc1007ba7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerLives: 2
+  startingLives: 3
   bombPrefab: {fileID: 4156313389858560205, guid: 0fabb46673101ab4e80f34b1010be4aa,
     type: 3}
-  maxBombs: 1
+  startingMaxBombs: 1
   actualBombs: 0
+  startingBombsRange: 1
+  invulnerabilityTimeAfterHit: 1
 --- !u!54 &7705812772871835941
 Rigidbody:
   m_ObjectHideFlags: 0

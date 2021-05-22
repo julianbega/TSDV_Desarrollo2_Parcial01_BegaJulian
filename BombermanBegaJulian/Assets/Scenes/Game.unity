@@ -415,7 +415,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapRows: 11
   mapColumn: 11
-  destructableColumns: 1
+  defaultdDestructablePillar: 10
+  destructablePillarsWithBombRangePowerUp: 2
+  destructablePillarsWithHPPowerUp: 2
+  destructablePillarsWithMaxBombPowerUp: 2
+  redEnemiesCuantity: 1
+  purpleEnemiesCuantity: 0
+  yellowEnemiesCuantity: 0
+  totalEnemies: 0
+  score: 100
+  timer: 0
   player: {fileID: 2549688863070177479, guid: 8cdce5a7478c302459218ef50e7c5c96, type: 3}
   redEnemyPrefab: {fileID: 1812807231719350055, guid: 98b44a665a49d694d83da5d372cb2ed8,
     type: 3}
@@ -427,16 +436,17 @@ MonoBehaviour:
     type: 3}
   DPillars: {fileID: 2331537243183680453, guid: f91a6e1691d23cb4db563b227bd4eb9b,
     type: 3}
-  redEnemiesCuantity: 1
-  purpleEnemiesCuantity: 0
-  yellowEnemiesCuantity: 0
-  totalEnemies: 0
-  score: 0
-  timer: 0
   PillarsParent: {fileID: 866606515}
   DPillarsParent: {fileID: 1697727300}
   EnemiesParent: {fileID: 121644381}
   DoorParent: {fileID: 834584022}
+  PowerUpParent: {fileID: 1029119278}
+  BombRangePowerUp: {fileID: 5055533519098709597, guid: 702b03d65ad02024c9c24b03a4e2afd8,
+    type: 3}
+  HPPowerUp: {fileID: 7791330434569526857, guid: 9be8bf8d85bd81442b25a60bdaab492f,
+    type: 3}
+  MaxBombPowerUp: {fileID: 9189784139012037293, guid: 1436126938594234fb126ccfeacab1de,
+    type: 3}
 --- !u!4 &878413807
 Transform:
   m_ObjectHideFlags: 0
@@ -463,6 +473,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e0051588a533af4a82f7423b88fb13d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1029119278
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1029119279}
+  m_Layer: 0
+  m_Name: PowerUpParent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1029119279
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1029119278}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.58777666, y: -53.8581, z: 30.38811}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1149310379
 GameObject:
   m_ObjectHideFlags: 0
