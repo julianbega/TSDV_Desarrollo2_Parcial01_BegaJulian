@@ -19,8 +19,8 @@ public class GameManager : MonoBehaviour
     public int destructablePillarsWithMaxBombPowerUp;
 
     public int redEnemiesCuantity;
-    public int purpleEnemiesCuantity;
-    public int yellowEnemiesCuantity;
+    private int purpleEnemiesCuantity;
+    private int yellowEnemiesCuantity;
     public int totalEnemies = 0;
     public int pointsPerEnemyKill;
 

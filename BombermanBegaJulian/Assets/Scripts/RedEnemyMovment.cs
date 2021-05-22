@@ -114,11 +114,11 @@ public class RedEnemyMovment : MonoBehaviour
         {
             DamagePlayer?.Invoke();
         }
-        if (collision.transform.tag == "RedEnemy" || collision.transform.tag == "Bomb" || collision.transform.tag == "DestroyablePillar")
+        if (collision.transform.tag == "RedEnemy" || collision.transform.tag == "Bomb" || collision.transform.tag == "DestroyablePillar" || collision.transform.tag == "YellowEnemy" || collision.transform.tag == "Shield")
         {
             Debug.Log("chocan 2 enemigos");
             Target = Origin;
         }
     }
- }
+}
 

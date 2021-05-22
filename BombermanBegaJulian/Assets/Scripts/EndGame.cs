@@ -31,7 +31,7 @@ public class EndGame : MonoBehaviour
         Score.text = "Score: " + gm.score;
         MaxBombs.text = "MaxBombs: " + PlayerManager.maxBombs;
         BombRange.text = "BombRange: " + PlayerManager.bombsRange;
-        int realEnemiesKilled = ((gm.yellowEnemiesCuantity + gm.purpleEnemiesCuantity + gm.redEnemiesCuantity) - gm.totalEnemies);
+        int realEnemiesKilled = ((/*gm.yellowEnemiesCuantity + gm.purpleEnemiesCuantity + */gm.redEnemiesCuantity) - gm.totalEnemies);
         EnemiesKilled.text = "EnemiesKilled: " + realEnemiesKilled;
         Lives.text = "PlayerLives: " + PlayerManager.playerLives;
 

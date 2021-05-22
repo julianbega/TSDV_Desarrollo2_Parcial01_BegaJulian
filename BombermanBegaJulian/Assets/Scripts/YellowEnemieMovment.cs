@@ -20,6 +20,11 @@ public class YellowEnemieMovment : MonoBehaviour
     public delegate void HitPlayer();
     public static HitPlayer DamagePlayer;
 
+    public GameObject backShield;
+    public GameObject frontShield;
+    public GameObject leftShield;
+    public GameObject rightShield;
+
     void Start()
     {
         Target = this.transform.position;
@@ -40,16 +45,32 @@ public class YellowEnemieMovment : MonoBehaviour
             switch (dir)
             {
                 case 0:
-                    Target = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z + 1);
+                    Target = this.transform.position + Vector3.forward;
+                    frontShield.SetActive(true);
+                    backShield.SetActive(false);
+                    rightShield.SetActive(false);
+                    leftShield.SetActive(false);
                     break;
                 case 1:
-                    Target = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z - 1);
+                    Target = this.transform.position + Vector3.back;
+                    backShield.SetActive(true);
+                    rightShield.SetActive(false);
+                    leftShield.SetActive(false);
+                    frontShield.SetActive(false);
                     break;
                 case 2:
-                    Target = new Vector3(this.transform.position.x + 1, this.transform.position.y, this.transform.position.z);
+                    Target = this.transform.position + Vector3.right;
+                    rightShield.SetActive(true);
+                    backShield.SetActive(false);
+                    leftShield.SetActive(false);
+                    frontShield.SetActive(false);
                     break;
                 case 3:
-                    Target = new Vector3(this.transform.position.x - 1, this.transform.position.y, this.transform.position.z);
+                    Target = this.transform.position + Vector3.left;
+                    leftShield.SetActive(true);
+                    backShield.SetActive(false);
+                    rightShield.SetActive(false);
+                    frontShield.SetActive(false);
                     break;
                 case 4:
 
@@ -73,10 +94,10 @@ public class YellowEnemieMovment : MonoBehaviour
 
     int SelectRandomDirection()
     {
-        bool CanGoForward = CheckDir(myRayForward, myHitForward, Vector3.forward);
-        bool CanGoBack = CheckDir(myRayBack, myHitBack, Vector3.back);
-        bool CanGoRight = CheckDir(myRayRight, myHitRight, Vector3.right);
-        bool CanGoLeft = CheckDir(myRayLeft, myHitLeft, Vector3.left);
+        bool CanGoForward = CheckDir(Vector3.forward);
+        bool CanGoBack = CheckDir(Vector3.back);
+        bool CanGoRight = CheckDir(Vector3.right);
+        bool CanGoLeft = CheckDir(Vector3.left);
 
         int dir = UnityEngine.Random.Range(0, 4);
         if (CanGoForward == false && CanGoBack == false && CanGoRight == false && CanGoLeft == false)
@@ -90,21 +111,21 @@ public class YellowEnemieMovment : MonoBehaviour
         return dir;
     }
 
-    bool CheckDir(Ray myRay, RaycastHit myRHit, Vector3 direction)
+    bool CheckDir(Vector3 direction)
     {
-        myRay = new Ray(this.transform.position, direction);
-        if (Physics.Raycast(myRay, out myRHit, 1.4f))
+        RaycastHit[] myHits = Physics.RaycastAll(this.transform.position, direction, 1.4f);
+        for (int i = 0; i < myHits.Length; i++)
         {
-            if (myRHit.transform.gameObject.tag == "DestroyablePillar" || myRHit.transform.gameObject.tag == "Map" || myRHit.transform.gameObject.tag == "Bomnb")
+            if (myHits[i].transform.gameObject.tag == "DestroyablePillar" || myHits[i].transform.gameObject.tag == "DestroyablePillar" || myHits[i].transform.gameObject.tag == "Bomnb" || myHits[i].transform.gameObject.tag == "DestroyablePillar")
             {
                 return false;
             }
+            else
+            {
+                return true;
+            }
         }
-        else
-        {
-            return true;
-        }
-        return true;
+        return false;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -114,10 +135,6 @@ public class YellowEnemieMovment : MonoBehaviour
         {
             DamagePlayer?.Invoke();
         }
-        if (collision.transform.tag == "RedEnemy" || collision.transform.tag == "Bomb")
-        {
-            Debug.Log("chocan 2 enemigos");
-            Target = Origin;
-        }
+        
     }
 }
