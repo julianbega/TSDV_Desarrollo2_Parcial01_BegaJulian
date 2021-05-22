@@ -14,6 +14,11 @@ public class PlayerManager : MonoBehaviour
     public float invulnerabilityTimeAfterHit;
     bool wasHitted;
     float timer;
+
+
+    public delegate void Change(string scene);    
+    public static Change ChangeScene;
+
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
@@ -41,8 +46,7 @@ public class PlayerManager : MonoBehaviour
         }
         if (playerLives <= 0)
         {
-            Destroy(gameManager.gameObject);
-            SceneManager.LoadScene("Game");
+            ChangeScene?.Invoke("Credits");
         }
         if (Input.GetKeyDown(KeyCode.Space) && actualBombs < maxBombs)
         {

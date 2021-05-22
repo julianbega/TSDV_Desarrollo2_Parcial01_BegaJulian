@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public GameObject purpleEnemyPrefab;
     public GameObject yellowEnemyPrefab;
     public GameObject doorPrefab;
+    public GameObject DPillars;
 
     public int redEnemiesCuantity;
     public int purpleEnemiesCuantity;
@@ -110,8 +111,8 @@ public class GameManager : MonoBehaviour
         int posInListOfDoor = UnityEngine.Random.Range(0, destructableColumns);        
         
         for (int i = 0; i < destructableColumns; i++)
-        {            
-            GameObject desPillar = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        {                
+            GameObject desPillar = Instantiate(DPillars);
             int actualDesPillar = UnityEngine.Random.Range(0, FreePositionsToSpawn.Count);
             if (i == posInListOfDoor)
             {
@@ -121,11 +122,6 @@ public class GameManager : MonoBehaviour
             desPillar.transform.position = FreePositionsToSpawn[actualDesPillar];
             FreePositionsToSpawn.Remove(FreePositionsToSpawn[actualDesPillar]);
             desPillar.transform.SetParent(DPillarsParent.transform);
-            desPillar.GetComponent<Renderer>().material.color = Color.black;
-            desPillar.transform.gameObject.tag = "DestroyablePillar";
-            desPillar.name = "DestroyablePillar";
-            desPillar.isStatic = true;
-
         }
 
     }

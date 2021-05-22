@@ -6,6 +6,9 @@ public class Door : MonoBehaviour
 {
     public bool isDoorOpen;
     public bool endGame;
+
+    public delegate void Change(string scene);
+    public static Change ChangeScene;
     void Start()
     {
         isDoorOpen = false;
@@ -21,7 +24,7 @@ public class Door : MonoBehaviour
     {
         if (other.tag == "Player" && isDoorOpen == true)
         {
-            endGame = true;
+            ChangeScene?.Invoke("Credits");
         }
     }
 
