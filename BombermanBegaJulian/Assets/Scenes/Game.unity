@@ -423,7 +423,8 @@ MonoBehaviour:
   purpleEnemiesCuantity: 0
   yellowEnemiesCuantity: 0
   totalEnemies: 0
-  score: 100
+  pointsPerEnemyKill: 100
+  score: 0
   timer: 0
   player: {fileID: 2549688863070177479, guid: 8cdce5a7478c302459218ef50e7c5c96, type: 3}
   redEnemyPrefab: {fileID: 1812807231719350055, guid: 98b44a665a49d694d83da5d372cb2ed8,
