@@ -9,14 +9,14 @@ public class GameManager : MonoBehaviour
     [Range(11, 99)]
     public int mapColumn = 31;
     [Range(1, 246)]
-    public int destructableColumns = 10;
+    public int defaultdDestructablePillar = 10;
 
-    public GameObject player;
-    public GameObject redEnemyPrefab;
-    public GameObject purpleEnemyPrefab;
-    public GameObject yellowEnemyPrefab;
-    public GameObject doorPrefab;
-    public GameObject DPillars;
+    [Range(0, 10)]
+    public int destructablePillarsWithBombRangePowerUp;
+    [Range(0, 10)]
+    public int destructablePillarsWithHPPowerUp;
+    [Range(0, 10)]
+    public int destructablePillarsWithMaxBombPowerUp;
 
     public int redEnemiesCuantity;
     public int purpleEnemiesCuantity;
@@ -26,10 +26,26 @@ public class GameManager : MonoBehaviour
     public int score = 0;
     public float timer = 0;
 
+    public static bool victory = true;
+
+
+
+    public GameObject player;
+    public GameObject redEnemyPrefab;
+    public GameObject purpleEnemyPrefab;
+    public GameObject yellowEnemyPrefab;
+    public GameObject doorPrefab;
+    public GameObject DPillars;
+
     public GameObject PillarsParent;
     public GameObject DPillarsParent;
     public GameObject EnemiesParent;
     public GameObject DoorParent;
+    public GameObject PowerUpParent;
+
+    public GameObject BombRangePowerUp;
+    public GameObject HPPowerUp;
+    public GameObject MaxBombPowerUp;
 
     public delegate void DoorIsOpen();
     public static DoorIsOpen checkOpenDoor;
@@ -48,9 +64,9 @@ public class GameManager : MonoBehaviour
             Debug.LogWarning("Las columnas deben ser impares para la correcta creacion de mapa");
         }
         int maxPosibleDColumns = ((mapRows - 2) * (mapColumn - 2)) - (((mapRows - 2) * (mapColumn - 2)) / 4) - 3 - totalEnemies;
-        if (destructableColumns > maxPosibleDColumns)
+        if (defaultdDestructablePillar + destructablePillarsWithBombRangePowerUp  + destructablePillarsWithHPPowerUp + destructablePillarsWithMaxBombPowerUp > maxPosibleDColumns)
         {
-            destructableColumns = maxPosibleDColumns;
+            defaultdDestructablePillar = maxPosibleDColumns - destructablePillarsWithBombRangePowerUp - destructablePillarsWithHPPowerUp - destructablePillarsWithMaxBombPowerUp;
             Debug.LogWarning("Hay demasiadas columnas destruibles");
         }
         DontDestroyOnLoad(this.gameObject);
@@ -70,7 +86,7 @@ public class GameManager : MonoBehaviour
     {
         timer += Time.deltaTime;
     }
-
+    
     void CreateMap()
     {
         CreateBaseMap();
@@ -108,22 +124,43 @@ public class GameManager : MonoBehaviour
     }
     private void CreateDestroyablePillars()
     {
-        int posInListOfDoor = UnityEngine.Random.Range(0, destructableColumns);        
-        
-        for (int i = 0; i < destructableColumns; i++)
-        {                
+        int posInListOfDoor = UnityEngine.Random.Range(0, defaultdDestructablePillar);
+
+        for (int i = 0; i < defaultdDestructablePillar; i++)
+        {
             GameObject desPillar = Instantiate(DPillars);
             int actualDesPillar = UnityEngine.Random.Range(0, FreePositionsToSpawn.Count);
             if (i == posInListOfDoor)
             {
                 CreatDoor(actualDesPillar);
-               
+
             }
             desPillar.transform.position = FreePositionsToSpawn[actualDesPillar];
             FreePositionsToSpawn.Remove(FreePositionsToSpawn[actualDesPillar]);
             desPillar.transform.SetParent(DPillarsParent.transform);
         }
+        CreatePowerUpPillars(BombRangePowerUp, destructablePillarsWithBombRangePowerUp);
+        CreatePowerUpPillars(HPPowerUp, destructablePillarsWithHPPowerUp);
+        CreatePowerUpPillars(MaxBombPowerUp, destructablePillarsWithMaxBombPowerUp);
 
+    }
+
+    private void CreatePowerUpPillars(GameObject PowerUpType, int cuantity)
+    {
+        for (int i = 0; i < cuantity; i++)
+        {
+
+            int actualDesPillar = UnityEngine.Random.Range(0, FreePositionsToSpawn.Count);
+            GameObject desPillar = Instantiate(DPillars);
+            desPillar.transform.position = FreePositionsToSpawn[actualDesPillar];            
+            desPillar.transform.SetParent(DPillarsParent.transform);
+
+            GameObject powerUp = Instantiate(PowerUpType);
+            powerUp.transform.position = FreePositionsToSpawn[actualDesPillar];
+            powerUp.transform.SetParent(PowerUpParent.transform);
+
+            FreePositionsToSpawn.Remove(FreePositionsToSpawn[actualDesPillar]);
+        }
     }
     private void CreatDoor(int pos)
     {        
@@ -177,4 +214,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        
+    }
 }

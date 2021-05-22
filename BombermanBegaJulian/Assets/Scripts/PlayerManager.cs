@@ -15,7 +15,6 @@ public class PlayerManager : MonoBehaviour
     bool wasHitted;
     float timer;
 
-
     public delegate void Change(string scene);    
     public static Change ChangeScene;
 
@@ -46,6 +45,7 @@ public class PlayerManager : MonoBehaviour
         }
         if (playerLives <= 0)
         {
+            GameManager.victory = false;
             ChangeScene?.Invoke("Credits");
         }
         if (Input.GetKeyDown(KeyCode.Space) && actualBombs < maxBombs)
@@ -66,6 +66,40 @@ public class PlayerManager : MonoBehaviour
     void ReduceActualBombs()
     {
         actualBombs--;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.transform.tag == "BombRangePowerUp")        
+        {
+            PowerUpGivePower pUp = other.transform.gameObject.GetComponent<PowerUpGivePower>();
+            if (pUp.givePower == false)
+            {
+                pUp.givePower = true;
+                bombsRange++;
+            }
+            Destroy(other.gameObject);
+        }
+        if (other.transform.tag == "HPPowerUp")
+        {
+            PowerUpGivePower pUp = other.transform.gameObject.GetComponent<PowerUpGivePower>();
+            if (pUp.givePower == false)
+            {
+                pUp.givePower = true;
+                playerLives++;
+            }
+            Destroy(other.gameObject);
+        }
+        if (other.transform.tag == "MaxBombPowerUp")
+        {
+            PowerUpGivePower pUp = other.transform.gameObject.GetComponent<PowerUpGivePower>();
+            if (pUp.givePower == false)
+            {
+                pUp.givePower = true;
+                maxBombs++;
+            }
+            Destroy(other.gameObject);
+        }
     }
 }
 

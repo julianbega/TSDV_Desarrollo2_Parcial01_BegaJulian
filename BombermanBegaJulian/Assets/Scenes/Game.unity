@@ -393,6 +393,7 @@ GameObject:
   m_Component:
   - component: {fileID: 878413807}
   - component: {fileID: 878413806}
+  - component: {fileID: 878413808}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -412,9 +413,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 088fae1680de51f4c83797c31d4d1d71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapRows: 19
-  mapColumn: 19
-  destructableColumns: 58
+  mapRows: 11
+  mapColumn: 11
+  destructableColumns: 1
   player: {fileID: 2549688863070177479, guid: 8cdce5a7478c302459218ef50e7c5c96, type: 3}
   redEnemyPrefab: {fileID: 1812807231719350055, guid: 98b44a665a49d694d83da5d372cb2ed8,
     type: 3}
@@ -424,7 +425,9 @@ MonoBehaviour:
     type: 3}
   doorPrefab: {fileID: 9216840699375339926, guid: 331b4cf0724536746ad45d4c8c9fd819,
     type: 3}
-  redEnemiesCuantity: 8
+  DPillars: {fileID: 2331537243183680453, guid: f91a6e1691d23cb4db563b227bd4eb9b,
+    type: 3}
+  redEnemiesCuantity: 1
   purpleEnemiesCuantity: 0
   yellowEnemiesCuantity: 0
   totalEnemies: 0
@@ -448,6 +451,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &878413808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 878413805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e0051588a533af4a82f7423b88fb13d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1149310379
 GameObject:
   m_ObjectHideFlags: 0
